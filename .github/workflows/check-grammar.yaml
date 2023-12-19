@@ -1,0 +1,18 @@
+name: Grammarly Check
+
+on: [push, pull_request]
+
+jobs:
+  grammar-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Call Grammarly API
+      run: |
+        curl -X POST "https://api.grammarly.com/your_endpoint" \
+        -H "Authorization: Bearer ${{ secrets.GRAMMARLY_API_TOKEN }}" \
+        -H "Content-Type: application/json" \
+        -d '{"text": "Your text to check"}'
