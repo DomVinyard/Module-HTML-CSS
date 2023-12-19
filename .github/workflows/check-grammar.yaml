@@ -13,11 +13,12 @@ jobs:
       - name: Read coursework.txt
         id: read_file
         run: |
-          content=$(cat coursework.txt)
+          content=$(cat coursework.txt)s
           echo "::set-output name=content::$content"
 
       - name: Call Grammarly API
         run: |
+          echo "${{ steps.read_file.outputs.content }}" \
           curl -X POST "https://api.grammarly.com/your_endpoint" \
           -H "Authorization: Bearer ${{ secrets.GRAMMARLY_API_TOKEN }}" \
           -H "Content-Type: application/json" \
